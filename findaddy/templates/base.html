@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>{% block title %}{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta
+            content="A fully featured admin theme which can be used to build CRM, CMS, etc."
+            name="description"
+    />
+    <meta content="Coderthemes" name="author"/>
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}"/>
+
+    {% block customCSS %}{% endblock customCSS %}
+
+    <!-- App css -->
+    <link
+            href="{% static 'css/icons.min.css' %}"
+            rel="stylesheet"
+            type="text/css"
+    />
+    <link
+            href="{% static 'css/app.min.css' %}"
+            rel="stylesheet"
+            type="text/css"
+            id="light-style"
+    />
+    <link
+            href="{% static 'css/app-dark.min.css' %}"
+            rel="stylesheet"
+            type="text/css"
+            id="dark-style"
+    />
+</head>
+{% block body %}
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import {initializeApp} from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+        import {getAnalytics} from "https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+{% endblock body %}
+
+</html>

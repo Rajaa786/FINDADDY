@@ -1,0 +1,1 @@
+web: python manage.py migrate && gunicorn config.wsgi --timeout 30000 --keep-alive 5
