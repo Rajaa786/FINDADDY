@@ -28,13 +28,13 @@ Categories = st.sidebar.multiselect(
     default=df['Categories'].unique()
 )
 
-chart_visual = st.sidebar.selectbox('Select Charts/Plot type',
-                                    ('Line Chart', 'Bar Chart', 'Bubble Chart'))
-
-selected_status = st.sidebar.selectbox('Select Smoking Status',
-                                       options=['Debit',
-                                                'Credit', 'Balance',
-                                                ])
+# chart_visual = st.sidebar.selectbox('Select Charts/Plot type',
+#                                     ('Line Chart', 'Bar Chart', 'Bubble Chart'))
+#
+# selected_status = st.sidebar.selectbox('Select Smoking Status',
+#                                        options=['Debit',
+#                                                 'Credit', 'Balance',
+#                                                 ])
 
 st.sidebar.header("Select Columns:")
 all_columns = df.columns.tolist()
