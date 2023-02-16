@@ -1,5 +1,4 @@
 matplotlib
-streamlit-django-widget
 plotly
 xlwings
 asgiref==3.5.2
