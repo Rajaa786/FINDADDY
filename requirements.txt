@@ -1,3 +1,7 @@
+matplotlib
+streamlit-django-widget
+plotly
+xlwings
 asgiref==3.5.2
 autopep8==1.6.0
 camelot-py==0.10.1

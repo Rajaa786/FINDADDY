@@ -7,7 +7,7 @@ from django.utils import timezone
 from decouple import config
 from findaddy.banks.Axis import AXIS
 from findaddy.banks.bob import BOB
-from findaddy.banks.hdfc import HDFC # error
+from findaddy.banks.hdfc import HDFC  # error
 from findaddy.banks.icici import ICICI
 from findaddy.banks.idfc import IDFC
 from findaddy.banks.kotak import KOTAK
@@ -19,11 +19,11 @@ import os
 import json
 import pandas as pd
 import pyrebase
+import subprocess
 
 
 import warnings
 warnings.filterwarnings('ignore')
-
 
 
 config = {
@@ -139,7 +139,10 @@ def signUp(request):
 
 
 def landing(request):
+
     if 'uid' in request.session:
+        subprocess.run(["streamlit", "run", "--browser.serverAddress=0.0.0.0", "--server.port",
+                        '8502', "streamlit/app.py"])
         if request.session['uid'] == 'admin':
             return render(request, 'admin/admin_dashboard.html')
         print('checking plan...')
@@ -245,7 +248,6 @@ def createReport(request):
 
 
 def create_report_ajax(request):
-
     # Checking Limit Value
     admin_report_limit = db.child("admin").child("plan").child(
         request.session["plan"]).child("report_limit").get().val()

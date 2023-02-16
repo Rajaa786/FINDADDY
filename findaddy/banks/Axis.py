@@ -1,3 +1,8 @@
+from openpyxl.styles import PatternFill, Border, Side
+from openpyxl import Workbook, load_workbook
+import openpyxl
+from pandas.core.dtypes.dtypes import dtypes
+import xlwings as xw
 import pandas as pd
 import numpy as np
 import datefinder
@@ -5,6 +10,8 @@ import re
 import calendar
 import pdfplumber
 import os
+import shutil
+import subprocess
 
 
 pd.set_option('display.max_columns', None)
@@ -20,6 +27,7 @@ class AXIS:
         self.valid = True
         self.df_total = pd.DataFrame()
         # Replaced Code with below
+        dashboard_file = os.path.join(os.getcwd(), 'Excel_Files/Dashboard')
         excel_folder = os.path.join(os.getcwd(), 'Excel_Files')
         # create excel folder if it does not exist
         if not os.path.exists(excel_folder):
@@ -33,6 +41,7 @@ class AXIS:
                         os.unlink(file_path)
                 except Exception as e:
                     print(e)
+        dashboard_file_loc = os.path.join(dashboard_file, 'BankStatement.xlsx')
         excel_loc = os.path.join(excel_folder, 'BankStatement.xlsx')
 
         self.Excel_File = pd.ExcelWriter(
@@ -124,6 +133,7 @@ class AXIS:
 
         self.df_total.to_excel(
             self.Excel_File, sheet_name="Transaction", index=False)
+
         # self.Excel_File.save()
 
     def EOD(self):
@@ -286,7 +296,7 @@ class AXIS:
         mab.loc['Total'] = mab.sum()
         mab['Day'].loc['Total'] = 'Total'
         mab.to_excel(self.Excel_File, sheet_name="EOD Balance", index=False)
-        # self.Excel_File.save()
+
         # print('EOD')
         return mab
 
@@ -296,6 +306,7 @@ class AXIS:
         monthavg['Day'].loc['Average'] = 'Average'
         monthavg.to_excel(
             self.Excel_File, sheet_name="Monthly AVG Balance", index=False)
+
         # self.Excel_File.save()
         return monthavg
 
@@ -317,6 +328,7 @@ class AXIS:
                 quatavg[index].iloc[31] = total_sum
                 quatavg[index].iloc[32] = quatavg.iloc[:31, tot_index-1].mean(
                 )+quatavg.iloc[:31, tot_index-2].mean()+quatavg.iloc[:31, tot_index-3].mean()
+
                 quatavg.to_excel(
                     self.Excel_File, sheet_name="Quaterly AVG Balance", index=False)
                 # self.Excel_File.save()
@@ -343,6 +355,7 @@ class AXIS:
                 )+halfavg.iloc[:31, tot_index-4].mean()+halfavg.iloc[:31, tot_index-5].mean()+halfavg.iloc[:31, tot_index-6].mean()
                 halfavg.to_excel(
                     self.Excel_File, sheet_name="Half-Yearly AVG Balance", index=False)
+
                 # self.Excel_File.save()
         else:
             pass
@@ -368,6 +381,7 @@ class AXIS:
 
                 yearavg.to_excel(
                     self.Excel_File, sheet_name="Yearly Average Balance", index=False)
+
                 # self.Excel_File.save()
         else:
             pass
@@ -425,6 +439,7 @@ class AXIS:
         df_cd.columns = cd_head
 
         df_cd.to_excel(self.Excel_File, sheet_name="CD", index=False)
+
         # self.Excel_File.save()
 
     def EMI(self):
@@ -446,6 +461,7 @@ class AXIS:
         df_emi.columns = emi_head
 
         df_emi.to_excel(self.Excel_File, sheet_name="EMI", index=False)
+
         # self.Excel_File.save()
 
     def POS(self):
@@ -467,6 +483,7 @@ class AXIS:
         df_pos.columns = pos_head
 
         df_pos.to_excel(self.Excel_File, sheet_name="POS", index=False)
+
         # self.Excel_File.save()
 
     def WITHDRAWL(self):
@@ -536,6 +553,7 @@ class AXIS:
         df_bounce.columns = bounce_head
 
         df_bounce.to_excel(self.Excel_File, sheet_name="Bounce", index=False)
+
         # self.Excel_File.save()
 
     def show(self):
@@ -566,7 +584,18 @@ class AXIS:
             print('Incorrect Password')
 
 
-# passwd = ''
+# passwd = ''s
 # startdate = '01/09/2020'
 # enddate = '31/02/2021'
 # AXIS('axisbank.pdf', passwd, startdate, enddate)
+
+# Replace these with the actual paths to your source and destination files
+source_file_path = "Excel_Files/BankStatement.xlsx"
+destination_directory = "Excel_Files/Dashboard"
+
+# Get the source directory path
+source_directory = os.path.dirname(source_file_path)
+
+# Use shutil.copy to copy the file to the destination directory
+shutil.copy(source_file_path, destination_directory)
+subprocess.run(["python3", "findaddy/banks/AxisDashboard.py"])
