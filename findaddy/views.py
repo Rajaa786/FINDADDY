@@ -141,8 +141,8 @@ def signUp(request):
 def landing(request):
 
     if 'uid' in request.session:
-        subprocess.run(["streamlit", "run", "--browser.serverAddress=0.0.0.0", "--server.port",
-                        '8502', "streamlit/app.py"])
+        # subprocess.run(["streamlit", "run", "--browser.serverAddress=0.0.0.0", "--server.port",
+        #                 '8502', "streamlit/app.py"])
         if request.session['uid'] == 'admin':
             return render(request, 'admin/admin_dashboard.html')
         print('checking plan...')
@@ -312,6 +312,8 @@ def create_report_ajax(request):
             return HttpResponse('Error')
 
         # Checking if report is present or not
+        report_loc1 = os.path.join(
+            os.getcwd(), 'Excel_Files' + '/' + 'Dashboard' + '/' + 'BankStatement1.xlsx')
         report_loc = os.path.join(
             os.getcwd(), 'Excel_Files' + '/' + 'BankStatement.xlsx')
         folder_loc = os.path.join(
@@ -347,6 +349,23 @@ def create_report_ajax(request):
             print(e)
             return HttpResponse('Error')
 
+# Converting Summary Excel Report to JSON Format
+        print('Converting Excel Report to JSON Format')
+        tables1 = dict()
+        try:
+            xlsx_file = pd.ExcelFile(report_loc1)
+            xlsx_sheets = xlsx_file.sheet_names
+            for sheet in xlsx_sheets:
+                excel_data_df = pd.read_excel(report_loc1, sheet_name=sheet)
+                sheet_json = excel_data_df.to_json(orient='records')
+                sheet_json = json.loads(sheet_json)
+                tables1[sheet] = json.dumps(sheet_json)
+            print('Excel to JSON Conversion Complete')
+        except Exception as e:
+            print('Excel to JSON Conversion Failed')
+            print(e)
+            return HttpResponse('Error')
+
         # Uploading Excel Report to Firebase Storage
         today_date = str(datetime.now().strftime("%d-%m-%Y-%H%M%S"))
         storage_loc = os.path.join(
@@ -356,6 +375,24 @@ def create_report_ajax(request):
             try:
                 storage.child(storage_loc).put(report_loc)
                 excel_url = storage.child(storage_loc).get_url(None)
+                print('Excel Report Uploaded Completely')
+            except Exception as e:
+                print('Excel Report Upload Failed')
+                print(e)
+                return HttpResponse('Error')
+        else:
+            print('Excel Report Not Found')
+            return HttpResponse('Error')
+
+        # Uploading Summary Report to Firebase Storage
+        today_date = str(datetime.now().strftime("%d-%m-%Y-%H%M%S"))
+        storage_loc1 = os.path.join(
+            request.session['uid'], 'summary' + '/' + today_date + '/' + report['reportname'] + '.xlsx')
+        if os.path.exists(report_loc1):
+            print('Uploading Excel Report to Firebase Storage')
+            try:
+                storage.child(storage_loc1).put(report_loc1)
+                excel_url1 = storage.child(storage_loc1).get_url(None)
                 print('Excel Report Uploaded Completely')
             except Exception as e:
                 print('Excel Report Upload Failed')
@@ -388,6 +425,28 @@ def create_report_ajax(request):
             print(e)
             return HttpResponse('Error')
 
+# Uploading Summary JSON Report Tables to Firebase Database
+        print('Uploading JSON Report Tables to Firebase Database')
+        report_data1 = {
+            'reportname': report['reportname'],
+            'bankname': report['bankname'],
+            'accountType': report['accountType'],
+            'accountNumber': report['accountNumber'],
+            'startdate': report['startdate'],
+            'enddate': report['enddate'],
+            'createdAt': today_date[0:10].replace("-", "/"),
+            'excel_url1': str(excel_url1),
+        }
+        try:
+            db.child("users").child('summary').child(
+                request.session['uid']).child(today_date).set(report_data1)
+            db.child("users").child('summary').child('tables').child(
+                request.session['uid']).child(today_date).set(tables1)
+            print('Report JSON Uploaded Completely')
+        except Exception as e:
+            print('Report JSON Upload Failed')
+            print(e)
+            return HttpResponse('Error')
         # Incrementing Number of Reports
         print('Incrementing Number of Reports')
         request.session['numreports'] += 1
@@ -432,8 +491,21 @@ def showReport(request):
             query = request.GET.get('data')
             report = db.child("users").child('tables').child(
                 request.session['uid']).child(query).get().val()
+            report1 = db.child("users").child('summary').child('tables').child(
+                request.session['uid']).child(query).get().val()
+            tables1 = dict(report1)
             tables = dict(report)
-            return render(request, 'showReport.html', {'tables': tables})
+            return render(request, 'showReport.html', {'tables': tables, 'tables1': tables1})
+        return render(request, 'index.html', {"message": "Your plan has expired"})
+    return render(request, 'login.html', {"message": "Please Login Again"})
+
+    if check_login(request):
+        if check_plan_expired(request):
+            query = request.GET.get('data')
+            report1 = db.child("users").child('summary').child('tables').child(
+                request.session['uid']).child(query).get().val()
+            tables1 = dict(report1)
+            return render(request, 'showReport.html', {'tables1': tables1})
         return render(request, 'index.html', {"message": "Your plan has expired"})
     return render(request, 'login.html', {"message": "Please Login Again"})
 
