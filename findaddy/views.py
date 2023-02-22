@@ -249,6 +249,7 @@ def createReport(request):
 
 def create_report_ajax(request):
     # Checking Limit Value
+
     admin_report_limit = db.child("admin").child("plan").child(
         request.session["plan"]).child("report_limit").get().val()
 
@@ -273,6 +274,7 @@ def create_report_ajax(request):
         try:
             print('Generating Excel Report....')
             if report['bankname'] == 'AXIS':
+                subprocess.run(["python3", "findaddy/banks/AxisDashboard.py"])
                 AXIS(pdf, report['pdfpassword'],
                      report['startdate'], report['enddate'])
             elif report['bankname'] == 'ICICI':
@@ -313,7 +315,7 @@ def create_report_ajax(request):
 
         # Checking if report is present or not
         report_loc1 = os.path.join(
-            os.getcwd(), 'Excel_Files' + '/' + 'Dashboard' + '/' + 'BankStatement1.xlsx')
+            os.getcwd(), 'Excel_Files' + '/' + 'Dashboard' + '/' + 'BankStatement.xlsx')
         report_loc = os.path.join(
             os.getcwd(), 'Excel_Files' + '/' + 'BankStatement.xlsx')
         folder_loc = os.path.join(
@@ -353,13 +355,13 @@ def create_report_ajax(request):
         print('Converting Excel Report to JSON Format')
         tables1 = dict()
         try:
-            xlsx_file = pd.ExcelFile(report_loc1)
-            xlsx_sheets = xlsx_file.sheet_names
-            for sheet in xlsx_sheets:
-                excel_data_df = pd.read_excel(report_loc1, sheet_name=sheet)
-                sheet_json = excel_data_df.to_json(orient='records')
-                sheet_json = json.loads(sheet_json)
-                tables1[sheet] = json.dumps(sheet_json)
+            xlsx_file1 = pd.ExcelFile(report_loc1)
+            xlsx_sheets1 = xlsx_file1.sheet_names
+            for sheet in xlsx_sheets1:
+                excel_data_df1 = pd.read_excel(report_loc1, sheet_name=sheet)
+                sheet_json1 = excel_data_df1.to_json(orient='records')
+                sheet_json1 = json.loads(sheet_json1)
+                tables1[sheet] = json.dumps(sheet_json1)
             print('Excel to JSON Conversion Complete')
         except Exception as e:
             print('Excel to JSON Conversion Failed')
@@ -368,13 +370,13 @@ def create_report_ajax(request):
 
         # Uploading Excel Report to Firebase Storage
         today_date = str(datetime.now().strftime("%d-%m-%Y-%H%M%S"))
-        storage_loc = os.path.join(
+        storage_loc1 = os.path.join(
             request.session['uid'], 'reports' + '/' + today_date + '/' + report['reportname'] + '.xlsx')
         if os.path.exists(report_loc):
             print('Uploading Excel Report to Firebase Storage')
             try:
-                storage.child(storage_loc).put(report_loc)
-                excel_url = storage.child(storage_loc).get_url(None)
+                storage.child(storage_loc1).put(report_loc1)
+                excel_url = storage.child(storage_loc1).get_url(None)
                 print('Excel Report Uploaded Completely')
             except Exception as e:
                 print('Excel Report Upload Failed')
@@ -485,6 +487,20 @@ def reports_ajax(request):
     return JsonResponse({})
 
 
+# def showReport(request):
+#     if check_login(request):
+#         if check_plan_expired(request):
+#             query = request.GET.get('data')
+#             report = db.child("users").child('tables').child(
+#                 request.session['uid']).child(query).get().val()
+#             report1 = db.child("users").child('summary').child('tables').child(
+#                 request.session['uid']).child(query).get().val()
+#             tables1 = dict(report1)
+#             print(tables1)
+#             tables = dict(report)
+#             return render(request, 'showReport.html', {'tables': tables, 'tables1': tables1})
+#         return render(request, 'index.html', {"message": "Your plan has expired"})
+#     return render(request, 'login.html', {"message": "Please Login Again"})
 def showReport(request):
     if check_login(request):
         if check_plan_expired(request):
@@ -493,19 +509,9 @@ def showReport(request):
                 request.session['uid']).child(query).get().val()
             report1 = db.child("users").child('summary').child('tables').child(
                 request.session['uid']).child(query).get().val()
-            tables1 = dict(report1)
-            tables = dict(report)
+            tables1 = dict(report1) if report1 else {}
+            tables = dict(report) if report else {}
             return render(request, 'showReport.html', {'tables': tables, 'tables1': tables1})
-        return render(request, 'index.html', {"message": "Your plan has expired"})
-    return render(request, 'login.html', {"message": "Please Login Again"})
-
-    if check_login(request):
-        if check_plan_expired(request):
-            query = request.GET.get('data')
-            report1 = db.child("users").child('summary').child('tables').child(
-                request.session['uid']).child(query).get().val()
-            tables1 = dict(report1)
-            return render(request, 'showReport.html', {'tables1': tables1})
         return render(request, 'index.html', {"message": "Your plan has expired"})
     return render(request, 'login.html', {"message": "Please Login Again"})
 

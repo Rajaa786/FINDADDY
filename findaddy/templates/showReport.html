@@ -184,6 +184,9 @@
           <!-- end page title -->
           <div id="table_buttons1"></div>
           <div id="result_table1"></div>
+          <div>
+            <table id="excel-table"></table>
+          </div>
           <div id="table_buttons"></div>
           <div id="result_table"></div>
         </div>
@@ -231,13 +234,15 @@
   <script src="{% static 'js/vendor/responsive.bootstrap5.min.js' %}"></script>
   <!-- third party js ends -->
 
+  
+
   <script type="text/javascript">
     	var tables1 = {{ tables1 | safe }};
     	let button_html1 = `<form action="" id="showtable1">
     		<div class="card">
     			<div class="card-body">
     		<div class="row">
-    			<label for="tablename1" class="col-md-3 mb-0 mb-md-2 col-form-label">SUMMARY Name</label>
+    			<label for="tablename1" class="col-md-3 mb-0 mb-md-2 col-form-label">Report Name</label>
     			<div class="col-md-9">
     				<div class="input-group">
     					<select class="form-select" id="tablename1" aria-label="Select Report Name">
@@ -302,75 +307,60 @@
     	}
   </script>
 
-  <script type="text/javascript">
-    	var tables = {{ tables | safe }};
-    	let button_html = `<form action="" id="showtable">
-    		<div class="card">
-    			<div class="card-body">
-    		<div class="row">
-    			<label for="tablename" class="col-md-3 mb-0 mb-md-2 col-form-label">Report</label>
-    			<div class="col-md-9">
-    				<div class="input-group">
-    					<select class="form-select" id="tablename" aria-label="Select Report Name">
-    					<option selected>Choose...</option>`;
-    	for (const tn in tables) {
-    	button_html +=
-    		`<option value="`+tn+`">`+tn+`</option>`;
-    	}
-    	button_html += `</select>
-    	<button class="btn btn-primary" type="submit">Go</button>
-    		</div>
-    	</div>
-    	</div>
-    	</div>
-    </div>
-    	</form>`;
-    	$("#table_buttons").html(button_html);
-    	$("#showtable").on("submit", function(e) {
-    		e.preventDefault();
-    		var table_name = $("#tablename").val();
-    		get_table_data(table_name);
-    	});
+ 
 
-    	function get_table_data(tn){
-    		$("#result_table").html(``);
-    		table = JSON.parse(tables[tn]);
-    		let table_html = `<div class="row">
-    			<div class="col-12">
-    				<div class="page-title-box">
-    					<h4 class="page-title">`+tn+`</h4>
-    				</div>
-    			</div>
-    		</div><div class="row">
-    			<div class="col-12">
-    				<div class="card">
-    					<div class="card-body">
-    						<div class="table-responsive">
-    							<table class="table table-sm table-centered mb-0" id="`+tn+`">
-    			<thead>
-    				<tr>`;
-    		for (const th in table[0]) {
-    			table_html += `<th>`+th+`</th>`;
-    		}
-    		table_html += `</tr>
-    		</thead>
-    		<tbody>`;
-    		for (const i in table) {
-    			table_html += `<tr>`;
-    			for (const td in table[i]) {
-    				table_html += `<td>`+table[i][td]+`</td>`;
-    			}
-    			table_html += `</tr>`;
-    		}
-    		table_html += `</tbody>
-    				</table>
-    			</div>
-    			</div>
-    			</div>
-    			</div>
-    			</div>`;
-    		$("#result_table").append(table_html);
-    	}
-  </script>
+    </form>`;
+    $("#table_buttons").html(button_html);
+    $("#showtable").on("submit", function(e) {
+      e.preventDefault();
+      var table_name = $("#tablename").val();
+      get_table_data(table_name);
+    });
+  
+    function get_table_data(tn){
+      $("#result_table").html(``);
+      var table;
+      if (tables1.hasOwnProperty(tn)) {
+        table = JSON.parse(tables1[tn]);
+      } else {
+        table = JSON.parse(tables[tn]);
+      }
+      let table_html = `<div class="row">
+        <div class="col-12">
+          <div class="page-title-box">
+            <h4 class="page-title">`+tn+`</h4>
+          </div>
+        </div>
+      </div><div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-sm table-centered mb-0" id="`+tn+`">
+                  <thead>
+                    <tr>`;
+      if (tables1.hasOwnProperty(tn)) {
+        // Change column names to match the new column positions
+        table_html += `<th>`+table[0]['B']+`</th>
+          <th>`+table[0]['A']+`</th>
+          <th>`+table[0]['C']+`</th>`;
+      } else {
+        // Use original column names
+        for (const th in table[0]) {
+          table_html += `<th>`+th+`</th>`;
+        }
+      }
+      table_html += `</tr>
+                  </thead>
+                  <tbody>`;
+      for (const i in table) {
+        if (i != 0) {
+          table_html += `<tr>`;
+          if (tables1.hasOwnProperty(tn)) {
+            // Change td values to match the new column positions
+            table_html += `<td>`+table[i]['B']+`</td>
+              <td>`+table[i]['A']+`</td>
+              <td>`+table[i]['C']+
+  
 </body>
 {% endblock body %}

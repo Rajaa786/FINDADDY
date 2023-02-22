@@ -4,7 +4,7 @@ from openpyxl import Workbook,load_workbook
 from openpyxl.styles import PatternFill,Border,Side
 import xlwings as xw
 
-w = pd.read_excel('Excel_Files/BankStatement.xlsx')
+w = pd.read_excel('Excel_Files/Dashboard/BankStatement.xlsx')
 
 df = pd.DataFrame(w)
 df1=df.rename(columns= {df.columns[0]:'Tran Date',df.columns[1]:'Chq No',df.columns[2]:'Particulars',df.columns[3]:'Debit',df.columns[4]:'Credit',df.columns[5]:'Balance',df.columns[6]:'Init. Br'})
@@ -59,7 +59,7 @@ def general():
     Inv_dr = Inv_details.groupby(Inv_details['Tran Date'].dt.strftime('%b-%Y'))['Debit'].sum().sort_values()
     # print(Inv_dr)
 
-    wb = load_workbook('Excel_Files/BankStatement.xlsx')
+    wb = load_workbook('Excel_Files/Dashboard/BankStatement.xlsx')
     wb.create_sheet(index=0,title='summary')
     sumr = wb['summary']
     eod = wb['EOD Balance']
@@ -2051,7 +2051,7 @@ def general():
     except Exception as e:
         sumr.cell(row=19, column=14, value=0)
 
-    wb.save('Excel_Files/Dashboard/BankStatement1.xlsx')
+    wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
 
 general()
 
@@ -2080,7 +2080,7 @@ def Balance():
     sumr.cell(row=21,column=13).value= eod.cell(row=2,column=12).value
     sumr.cell(row=21,column=14).value= eod.cell(row=2,column=13).value
 
-    wb.save('Excel_Files/Dashboard/BankStatement1.xlsx')
+    wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
 
 Balance()
 
@@ -2498,7 +2498,7 @@ def Income():
 
 # Save the changes
 
-    wb.save('Excel_Files/Dashboard/BankStatement1.xlsx')
+    wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
 
 Income()
 
@@ -3138,14 +3138,14 @@ def Expenditure():
 
 
 
-    wb.save('Excel_Files/Dashboard/BankStatement1.xlsx')
+    wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
 
 Expenditure()
 
 def PersonalExpenses():
 
 
-     wb = load_workbook('Excel_Files/Dashboard/BankStatement1.xlsx')
+     wb = load_workbook('Excel_Files/Dashboard/BankStatement.xlsx')
      sumr= wb['summary']
      eod= wb['EOD Balance']
 
@@ -3749,7 +3749,7 @@ def PersonalExpenses():
      except Exception as e:
       sumr.cell(row=59,column=14,value=0)
 
-     wb.save('Excel_Files/Dashboard/BankStatement1.xlsx')
+     wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
 
 PersonalExpenses()
 
@@ -3757,7 +3757,7 @@ from pandas.core.dtypes.dtypes import dtypes
 def Balance1():
     
 #     row8=> Opening balance
-    df5 = pd.read_excel('Excel_Files/Dashboard/BankStatement1.xlsx',sheet_name='EOD Balance',index_col = 'Day')
+    df5 = pd.read_excel('Excel_Files/Dashboard/BankStatement.xlsx',sheet_name='EOD Balance',index_col = 'Day')
 #     print(df5)
 #     print(df5.index[-1])
     df5.drop(index=df5.index[-1],axis=0,inplace=True) 
@@ -3920,7 +3920,7 @@ def Balance1():
        sumr.cell(row=22,column=14,value=0)
     
 
-    wb.save('Excel_Files/Dashboard/BankStatement1.xlsx')
+    wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
 
 Balance1()
 
@@ -4807,7 +4807,7 @@ def perExpenditure():
    
       
 
-     wb.save('Excel_Files/Dashboard/BankStatement1.xlsx')
+     wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
 
 perExpenditure()
 
@@ -4957,7 +4957,7 @@ def lastrows1():
     sumr['N94'] = ((sumr['N87'].value) - ((sumr['N88'].value) + (sumr['N43'].value) + (sumr['N42'].value) + (sumr['N44'].value)))
     
     
-    wb.save('Excel_Files/Dashboard/BankStatement1.xlsx')
+    wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
 
 lastrows1()
 
@@ -5026,7 +5026,7 @@ def sum():
 
 
 
-    wb.save('Excel_Files/Dashboard/BankStatement1.xlsx')
+    wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
 
 sum()
 
@@ -5075,7 +5075,7 @@ for row in ws.iter_rows():
         wb[sheet_name][cell.coordinate].value = cell.value
 
 # save the changes
-wb.save('Excel_Files/Dashboard/BankStatement1.xlsx')
+wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
 
 import openpyxl
 
@@ -5089,7 +5089,7 @@ sheet_to_remove = workbook['Transaction']
 workbook.remove(sheet_to_remove)
 
 # Save the changes
-workbook.save('Excel_Files/Dashboard/BankStatement1.xlsx')
+workbook.save('Excel_Files/Dashboard/BankStatement.xlsx')
 
 import pandas as pd
 

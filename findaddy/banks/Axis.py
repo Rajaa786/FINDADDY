@@ -598,4 +598,3 @@ source_directory = os.path.dirname(source_file_path)
 
 # Use shutil.copy to copy the file to the destination directory
 shutil.copy(source_file_path, destination_directory)
-subprocess.run(["python3", "findaddy/banks/AxisDashboard.py"])
