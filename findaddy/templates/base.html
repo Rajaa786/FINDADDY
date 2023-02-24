@@ -4,8 +4,50 @@
 <head>
     <meta charset="utf-8"/>
     <title>{% block title %}{% endblock title %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
+  />
+  <title>CORK Admin - Multipurpose Bootstrap Dashboard Template</title>
+  <link rel="icon" type="image/x-icon" href="{% static "src/assets/img/favicon.ico" %}" />
+  <link
+    href="{% static "layouts/modern-dark-menu/css/light/loader.css" %}"
+    rel="stylesheet"
+    type="text/css"
+  />
+  
+  <script src="{% static "layouts/modern-dark-menu/loader.js" %}"></script>
+
+  <!-- BEGIN GLOBAL MANDATORY STYLES -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:400,600,700"
+    rel="stylesheet"
+  />
+  <link
+    href="{% static "src/bootstrap/css/bootstrap.min.css" %}"
+    rel="stylesheet"
+    type="text/css"
+  />
+  <link
+    href="{% static "layouts/modern-dark-menu/css/light/plugins.css" %}"
+    rel="stylesheet"
+    type="text/css"
+  />
+  
+  <!-- END GLOBAL MANDATORY STYLES -->
+
+  <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+  <link
+    href="{% static "src/plugins/src/apex/apexcharts.css" %}"
+    rel="stylesheet"
+    type="text/css"
+  />
+  <link
+    href="{% static "src/assets/css/light/dashboard/dash_1.css" %}"
+    rel="stylesheet"
+    type="text/css"
+  />
+     <meta
             content="A fully featured admin theme which can be used to build CRM, CMS, etc."
             name="description"
     />
@@ -27,12 +69,7 @@
             type="text/css"
             id="light-style"
     />
-    <link
-            href="{% static 'css/app-dark.min.css' %}"
-            rel="stylesheet"
-            type="text/css"
-            id="dark-style"
-    />
+    
 </head>
 {% block body %}
 

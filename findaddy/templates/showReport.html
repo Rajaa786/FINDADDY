@@ -1,366 +1,342 @@
 {% extends 'base.html' %} {% load static %}{% block customCSS %}
 <!-- third party css -->
 <link
-  href="{% static 'css/vendor/dataTables.bootstrap5.css' %}"
-  rel="stylesheet"
-  type="text/css"
+	href="{% static 'css/vendor/dataTables.bootstrap5.css' %}"
+	rel="stylesheet"
+	type="text/css"
 />
 <link
-  href="{% static 'css/vendor/responsive.bootstrap5.css' %}"
-  rel="stylesheet"
-  type="text/css"
+	href="{% static 'css/vendor/responsive.bootstrap5.css' %}"
+	rel="stylesheet"
+	type="text/css"
 />
 <!-- third party css end -->
 {% endblock customCSS %} {% block body %}
 <body
-  class="loading"
-  data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'
+	class="loading"
+	data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'
 >
-  <!-- Begin page -->
-  <div class="wrapper">
-    <!-- ========== Left Sidebar Start ========== -->
-    <div class="leftside-menu">
-      <!-- LOGO -->
-      <a href="index.html" class="logo text-center logo-light">
-        <span class="logo-lg">
-          <img src="{% static 'images/logo.png' %}" alt="" height="60" />
-        </span>
-        <span class="logo-sm">
-          <img src="{% static 'images/logo_sm.png' %}" alt="" height="30" />
-        </span>
-      </a>
+	<!-- Begin page -->
+	<div class="wrapper">
+		<!-- ========== Left Sidebar Start ========== -->
+		<div class="leftside-menu">
+			<!-- LOGO -->
+			<a href="index.html" class="logo text-center logo-light">
+				<span class="logo-lg">
+					<img
+						src="{% static 'images/logo.png' %}"
+						alt=""
+						height="60"
+					/>
+				</span>
+				<span class="logo-sm">
+					<img
+						src="{% static 'images/logo_sm.png' %}"
+						alt=""
+						height="30"
+					/>
+				</span>
+			</a>
 
-      <!-- LOGO -->
-      <a href="index.html" class="logo text-center logo-dark">
-        <span class="logo-lg">
-          <img src="{% static 'images/logo-dark.png' %}" alt="" height="60" />
-        </span>
-        <span class="logo-sm">
-          <img
-            src="{% static 'images/logo_sm_dark.png' %}"
-            alt=""
-            height="30"
-          />
-        </span>
-      </a>
+			<!-- LOGO -->
+			<a href="index.html" class="logo text-center logo-dark">
+				<span class="logo-lg">
+					<img
+						src="{% static 'images/logo-dark.png' %}"
+						alt=""
+						height="60"
+					/>
+				</span>
+				<span class="logo-sm">
+					<img
+						src="{% static 'images/logo_sm_dark.png' %}"
+						alt=""
+						height="30"
+					/>
+				</span>
+			</a>
 
-      <div class="h-100" id="leftside-menu-container" data-simplebar="">
-        <!--- Sidemenu -->
-        <ul class="side-nav">
-          <li class="side-nav-item">
-            <a href="{% url 'dashboard' %}" class="side-nav-link">
-              <i class="uil-home-alt"></i>
-              <span> DashBoard </span>
-            </a>
-          </li>
+			<div class="h-100" id="leftside-menu-container" data-simplebar="">
+				<!--- Sidemenu -->
+				<ul class="side-nav">
+					<li class="side-nav-item">
+						<a href="{% url 'dashboard' %}" class="side-nav-link">
+							<i class="uil-home-alt"></i>
+							<span> DashBoard </span>
+						</a>
+					</li>
 
-          <li class="side-nav-item">
-            <a href="{% url 'createReport' %}" class="side-nav-link">
-              <i class="uil-comments-alt"></i>
-              <span> Generate Report </span>
-            </a>
-          </li>
+					<li class="side-nav-item">
+						<a
+							href="{% url 'createReport' %}"
+							class="side-nav-link"
+						>
+							<i class="uil-comments-alt"></i>
+							<span> Generate Report </span>
+						</a>
+					</li>
 
-          <li class="side-nav-item menuitem-active">
-            <a href="{% url 'viewReport' %}" class="side-nav-link">
-              <i class="uil-rss"></i>
-              <span> View Report </span>
-            </a>
-          </li>
-        </ul>
+					<li class="side-nav-item menuitem-active">
+						<a href="{% url 'viewReport' %}" class="side-nav-link">
+							<i class="uil-rss"></i>
+							<span> View Report </span>
+						</a>
+					</li>
+				</ul>
 
-        <!-- Help Box -->
-        <div class="help-box text-white text-center">
-          <a href="javascript: void(0);" class="float-end close-btn text-white">
-            <i class="mdi mdi-close"></i>
-          </a>
-          <img
-            src="{% static 'images/help-icon.svg' %}"
-            height="90"
-            alt="Helper Icon Image"
-          />
-          <h5 class="mt-3">Unlimited Access</h5>
-          <p class="mb-3">Upgrade to plan to get access to unlimited reports</p>
-          <a href="javascript: void(0);" class="btn btn-outline-light btn-sm"
-            >Upgrade</a
-          >
-        </div>
-        <!-- end Help Box -->
-        <!-- End Sidebar -->
+				<!-- Help Box -->
+				<div class="help-box text-white text-center">
+					<a
+						href="javascript: void(0);"
+						class="float-end close-btn text-white"
+					>
+						<i class="mdi mdi-close"></i>
+					</a>
+					<img
+						src="{% static 'images/help-icon.svg' %}"
+						height="90"
+						alt="Helper Icon Image"
+					/>
+					<h5 class="mt-3">Unlimited Access</h5>
+					<p class="mb-3">
+						Upgrade to plan to get access to unlimited reports
+					</p>
+					<a
+						href="javascript: void(0);"
+						class="btn btn-outline-light btn-sm"
+						>Upgrade</a
+					>
+				</div>
+				<!-- end Help Box -->
+				<!-- End Sidebar -->
 
-        <div class="clearfix"></div>
-      </div>
-      <!-- Sidebar -left -->
-    </div>
-    <!-- Left Sidebar End -->
+				<div class="clearfix"></div>
+			</div>
+			<!-- Sidebar -left -->
+		</div>
+		<!-- Left Sidebar End -->
 
-    <!-- ============================================================== -->
-    <!-- Start Page Content here -->
-    <!-- ============================================================== -->
+		<!-- ============================================================== -->
+		<!-- Start Page Content here -->
+		<!-- ============================================================== -->
 
-    <div class="content-page">
-      <div class="content">
-        <!-- Topbar Start -->
-        <div class="navbar-custom">
-          <ul class="list-unstyled topbar-menu float-end mb-0">
-            <li class="dropdown notification-list">
-              <a
-                class="nav-link dropdown-toggle nav-user arrow-none me-0 d-flex align-items-center"
-                data-bs-toggle="dropdown"
-                href="#"
-                role="button"
-                aria-haspopup="false"
-                aria-expanded="false"
-              >
-                <span class="account-user-avatar">
-                  <img
-                    src="{% static 'images/users/avatar-1.jpg' %}"
-                    alt="user-image"
-                    class="rounded-circle"
-                  />
-                </span>
-                <span>
-                  <span class="account-user-name"
-                    >{{request.session.name}}</span
-                  >
-                </span>
-              </a>
-              <div
-                class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown"
-              >
-                <!-- item-->
-                <div class="dropdown-header noti-title">
-                  <h6 class="text-overflow m-0">Welcome !</h6>
-                </div>
+		<div class="content-page">
+			<div class="content">
+				<!-- Topbar Start -->
+				<div class="navbar-custom">
+					<ul class="list-unstyled topbar-menu float-end mb-0">
+						<li class="dropdown notification-list">
+							<a
+								class="nav-link dropdown-toggle nav-user arrow-none me-0 d-flex align-items-center"
+								data-bs-toggle="dropdown"
+								href="#"
+								role="button"
+								aria-haspopup="false"
+								aria-expanded="false"
+							>
+								<span class="account-user-avatar">
+									<img
+										src="{% static 'images/users/avatar-1.jpg' %}"
+										alt="user-image"
+										class="rounded-circle"
+									/>
+								</span>
+								<span>
+									<span class="account-user-name"
+										>{{request.session.name}}</span
+									>
+								</span>
+							</a>
+							<div
+								class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown"
+							>
+								<!-- item-->
+								<div class="dropdown-header noti-title">
+									<h6 class="text-overflow m-0">Welcome !</h6>
+								</div>
 
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                  <i class="mdi mdi-account-circle me-1"></i>
-                  <span>My Account</span>
-                </a>
+								<!-- item-->
+								<a
+									href="javascript:void(0);"
+									class="dropdown-item notify-item"
+								>
+									<i class="mdi mdi-account-circle me-1"></i>
+									<span>My Account</span>
+								</a>
 
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                  <i class="mdi mdi-account-edit me-1"></i>
-                  <span>Settings</span>
-                </a>
+								<!-- item-->
+								<a
+									href="javascript:void(0);"
+									class="dropdown-item notify-item"
+								>
+									<i class="mdi mdi-account-edit me-1"></i>
+									<span>Settings</span>
+								</a>
 
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                  <i class="mdi mdi-lifebuoy me-1"></i>
-                  <span>Support</span>
-                </a>
+								<!-- item-->
+								<a
+									href="javascript:void(0);"
+									class="dropdown-item notify-item"
+								>
+									<i class="mdi mdi-lifebuoy me-1"></i>
+									<span>Support</span>
+								</a>
 
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                  <i class="mdi mdi-lock-outline me-1"></i>
-                  <span>Lock Screen</span>
-                </a>
+								<!-- item-->
+								<a
+									href="javascript:void(0);"
+									class="dropdown-item notify-item"
+								>
+									<i class="mdi mdi-lock-outline me-1"></i>
+									<span>Lock Screen</span>
+								</a>
 
-                <!-- item-->
-                <a href="/logout/" class="dropdown-item notify-item">
-                  <i class="mdi mdi-logout me-1"></i>
-                  <span>Logout</span>
-                </a>
-              </div>
-            </li>
-          </ul>
-          <button class="button-menu-mobile open-left">
-            <i class="mdi mdi-menu"></i>
-          </button>
-        </div>
-        <!-- end Topbar -->
+								<!-- item-->
+								<a
+									href="/logout/"
+									class="dropdown-item notify-item"
+								>
+									<i class="mdi mdi-logout me-1"></i>
+									<span>Logout</span>
+								</a>
+							</div>
+						</li>
+					</ul>
+					<button class="button-menu-mobile open-left">
+						<i class="mdi mdi-menu"></i>
+					</button>
+				</div>
+				<!-- end Topbar -->
 
-        <!-- Start Content-->
-        <div class="container-fluid">
-          <!-- start page title -->
-          <div class="row">
-            <div class="col-12">
-              <div class="page-title-box">
-                <h4 class="page-title">Report Data</h4>
-              </div>
-            </div>
-          </div>
-          <!-- end page title -->
-          <div id="table_buttons1"></div>
-          <div id="result_table1"></div>
-          <div>
-            <table id="excel-table"></table>
-          </div>
-          <div id="table_buttons"></div>
-          <div id="result_table"></div>
-        </div>
-        <!-- container -->
-      </div>
-      <!-- content -->
+				<!-- Start Content-->
+				<div class="container-fluid">
+					<!-- start page title -->
+					<div class="row">
+						<div class="col-12">
+							<div class="page-title-box">
+								<h4 class="page-title">Report Data</h4>
+							</div>
+						</div>
+					</div>
+					<!-- end page title -->
+					<div id="table_buttons"></div>
+					<div id="result_table"></div>
+				</div>
+				<!-- container -->
+			</div>
+			<!-- content -->
 
-      <!-- Footer Start -->
-      <footer class="footer">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-6">
-              <script>
-                document.write(new Date().getFullYear());
-              </script>
-              © All rights reserved.
-            </div>
-            <div class="col-md-6">
-              <div class="text-md-end footer-links d-none d-md-block">
-                <a href="javascript: void(0);">About</a>
-                <a href="javascript: void(0);">Support</a>
-                <a href="javascript: void(0);">Contact Us</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
-      <!-- end Footer -->
-    </div>
+			<!-- Footer Start -->
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-6">
+							<script>
+								document.write(new Date().getFullYear());
+							</script>
+							© All rights reserved.
+						</div>
+						<div class="col-md-6">
+							<div
+								class="text-md-end footer-links d-none d-md-block"
+							>
+								<a href="javascript: void(0);">About</a>
+								<a href="javascript: void(0);">Support</a>
+								<a href="javascript: void(0);">Contact Us</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer>
+			<!-- end Footer -->
+		</div>
 
-    <!-- ============================================================== -->
-    <!-- End Page content -->
-    <!-- ============================================================== -->
-  </div>
-  <!-- END wrapper -->
+		<!-- ============================================================== -->
+		<!-- End Page content -->
+		<!-- ============================================================== -->
+	</div>
+	<!-- END wrapper -->
 
-  <!-- bundle -->
-  <script src="{% static 'js/vendor.min.js' %}"></script>
-  <script src="{% static 'js/app.min.js' %}"></script>
+	<!-- bundle -->
+	<script src="{% static 'js/vendor.min.js' %}"></script>
+	<script src="{% static 'js/app.min.js' %}"></script>
 
-  <!-- third party js -->
-  <script src="{% static 'js/vendor/jquery.dataTables.min.js' %}"></script>
-  <script src="{% static 'js/vendor/dataTables.bootstrap5.js' %}"></script>
-  <script src="{% static 'js/vendor/dataTables.responsive.min.js' %}"></script>
-  <script src="{% static 'js/vendor/responsive.bootstrap5.min.js' %}"></script>
-  <!-- third party js ends -->
+	<!-- third party js -->
+	<script src="{% static 'js/vendor/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'js/vendor/dataTables.bootstrap5.js' %}"></script>
+	<script src="{% static 'js/vendor/dataTables.responsive.min.js' %}"></script>
+	<script src="{% static 'js/vendor/responsive.bootstrap5.min.js' %}"></script>
+	<!-- third party js ends -->
 
-  
+	<script type="text/javascript">
+			var tables = {{ tables | safe }};
+			let button_html = `<form action="" id="showtable">
+				<div class="card">
+					<div class="card-body">
+				<div class="row">
+					<label for="tablename" class="col-md-3 mb-0 mb-md-2 col-form-label">Report Name</label>
+					<div class="col-md-9">
+						<div class="input-group">
+							<select class="form-select" id="tablename" aria-label="Select Report Name">
+							<option selected>Choose...</option>`;
+			for (const tn in tables) {
+			button_html +=
+				`<option value="`+tn+`">`+tn+`</option>`;
+			}
+			button_html += `</select>
+			<button class="btn btn-primary" type="submit">Go</button>
+				</div>
+			</div>
+			</div>
+			</div>
+		</div>
+			</form>`;
+			$("#table_buttons").html(button_html);
+			$("#showtable").on("submit", function(e) {
+				e.preventDefault();
+				var table_name = $("#tablename").val();
+				get_table_data(table_name);
+			});
 
-  <script type="text/javascript">
-    	var tables1 = {{ tables1 | safe }};
-    	let button_html1 = `<form action="" id="showtable1">
-    		<div class="card">
-    			<div class="card-body">
-    		<div class="row">
-    			<label for="tablename1" class="col-md-3 mb-0 mb-md-2 col-form-label">Report Name</label>
-    			<div class="col-md-9">
-    				<div class="input-group">
-    					<select class="form-select" id="tablename1" aria-label="Select Report Name">
-    					<option selected>Choose...</option>`;
-    	for (const tn in tables1) {
-    	button_html1 +=
-    		`<option value="`+tn+`">`+tn+`</option>`;
-    	}
-    	button_html1 += `</select>
-    	<button class="btn btn-primary" type="submit">Go</button>
-    		</div>
-    	</div>
-    	</div>
-    	</div>
-    </div>
-    	</form>`;
-    	$("#table_buttons1").html(button_html1);
-    	$("#showtable1").on("submit", function(e) {
-    		e.preventDefault();
-    		var table_name1 = $("#tablename1").val();
-    		get_table_data(table_name1);
-    	});
-
-    	function get_table_data(tn){
-    		$("#result_table1").html(``);
-    		table1 = JSON.parse(tables1[tn]);
-    		let table_html1 = `<div class="row">
-    			<div class="col-12">
-    				<div class="page-title-box">
-    					<h4 class="page-title">`+tn+`</h4>
-    				</div>
-    			</div>
-    		</div><div class="row">
-    			<div class="col-12">
-    				<div class="card">
-    					<div class="card-body">
-    						<div class="table-responsive">
-    							<table class="table table-sm table-centered mb-0" id="`+tn+`">
-    			<thead>
-    				<tr>`;
-    		for (const th in table1[0]) {
-    			table_html1 += `<th>`+th+`</th>`;
-    		}
-    		table_html1 += `</tr>
-    		</thead>
-    		<tbody>`;
-    		for (const i in table1) {
-    			table_html1 += `<tr>`;
-    			for (const td in table1[i]) {
-    				table_html1 += `<td>`+table1[i][td]+`</td>`;
-    			}
-    			table_html1 += `</tr>`;
-    		}
-    		table_html1 += `</tbody>
-    				</table>
-    			</div>
-    			</div>
-    			</div>
-    			</div>
-    			</div>`;
-    		$("#result_table1").append(table_html1);
-    	}
-  </script>
-
- 
-
-    </form>`;
-    $("#table_buttons").html(button_html);
-    $("#showtable").on("submit", function(e) {
-      e.preventDefault();
-      var table_name = $("#tablename").val();
-      get_table_data(table_name);
-    });
-  
-    function get_table_data(tn){
-      $("#result_table").html(``);
-      var table;
-      if (tables1.hasOwnProperty(tn)) {
-        table = JSON.parse(tables1[tn]);
-      } else {
-        table = JSON.parse(tables[tn]);
-      }
-      let table_html = `<div class="row">
-        <div class="col-12">
-          <div class="page-title-box">
-            <h4 class="page-title">`+tn+`</h4>
-          </div>
-        </div>
-      </div><div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-sm table-centered mb-0" id="`+tn+`">
-                  <thead>
-                    <tr>`;
-      if (tables1.hasOwnProperty(tn)) {
-        // Change column names to match the new column positions
-        table_html += `<th>`+table[0]['B']+`</th>
-          <th>`+table[0]['A']+`</th>
-          <th>`+table[0]['C']+`</th>`;
-      } else {
-        // Use original column names
-        for (const th in table[0]) {
-          table_html += `<th>`+th+`</th>`;
-        }
-      }
-      table_html += `</tr>
-                  </thead>
-                  <tbody>`;
-      for (const i in table) {
-        if (i != 0) {
-          table_html += `<tr>`;
-          if (tables1.hasOwnProperty(tn)) {
-            // Change td values to match the new column positions
-            table_html += `<td>`+table[i]['B']+`</td>
-              <td>`+table[i]['A']+`</td>
-              <td>`+table[i]['C']+
-  
+			function get_table_data(tn){
+				$("#result_table").html(``);
+				table = JSON.parse(tables[tn]);
+				let table_html = `<div class="row">
+					<div class="col-12">
+						<div class="page-title-box">
+							<h4 class="page-title">`+tn+`</h4>
+						</div>
+					</div>
+				</div><div class="row">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="table table-sm table-centered mb-0" id="`+tn+`">
+					<thead>
+						<tr>`;
+				for (const th in table[0]) {
+					table_html += `<th>`+th+`</th>`;
+				}
+				table_html += `</tr>
+				</thead>
+				<tbody>`;
+				for (const i in table) {
+					table_html += `<tr>`;
+					for (const td in table[i]) {
+						table_html += `<td>`+table[i][td]+`</td>`;
+					}
+					table_html += `</tr>`;
+				}
+				table_html += `</tbody>
+						</table>
+					</div>
+					</div>
+					</div>
+					</div>
+					</div>`;
+				$("#result_table").append(table_html);
+			}
+	</script>
 </body>
 {% endblock body %}
