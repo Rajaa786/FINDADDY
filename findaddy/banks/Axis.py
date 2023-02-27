@@ -590,11 +590,11 @@ class AXIS:
 # AXIS('axisbank.pdf', passwd, startdate, enddate)
 
 # Replace these with the actual paths to your source and destination files
-source_file_path = "Excel_Files/BankStatement.xlsx"
-destination_directory = "Excel_Files/Dashboard"
+# source_file_path = "Excel_Files/BankStatement.xlsx"
+# destination_directory = "Excel_Files/Dashboard"
 
-# Get the source directory path
-source_directory = os.path.dirname(source_file_path)
+# # Get the source directory path
+# source_directory = os.path.dirname(source_file_path)
 
-# Use shutil.copy to copy the file to the destination directory
-shutil.copy(source_file_path, destination_directory)
+# # Use shutil.copy to copy the file to the destination directory
+# shutil.copy(source_file_path, destination_directory)

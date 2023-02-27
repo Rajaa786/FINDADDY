@@ -4,7 +4,7 @@ from openpyxl import Workbook,load_workbook
 from openpyxl.styles import PatternFill,Border,Side
 import xlwings as xw
 
-w = pd.read_excel('Excel_Files/Dashboard/BankStatement.xlsx')
+w = pd.read_excel('Excel_Files/BankStatement.xlsx')
 
 df = pd.DataFrame(w)
 df1=df.rename(columns= {df.columns[0]:'Tran Date',df.columns[1]:'Chq No',df.columns[2]:'Particulars',df.columns[3]:'Debit',df.columns[4]:'Credit',df.columns[5]:'Balance',df.columns[6]:'Init. Br'})
@@ -59,7 +59,7 @@ def general():
     Inv_dr = Inv_details.groupby(Inv_details['Tran Date'].dt.strftime('%b-%Y'))['Debit'].sum().sort_values()
     # print(Inv_dr)
 
-    wb = load_workbook('Excel_Files/Dashboard/BankStatement.xlsx')
+    wb = load_workbook('Excel_Files/BankStatement.xlsx')
     wb.create_sheet(index=0,title='summary')
     sumr = wb['summary']
     eod = wb['EOD Balance']
@@ -2051,17 +2051,17 @@ def general():
     except Exception as e:
         sumr.cell(row=19, column=14, value=0)
 
-    wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
+    wb.save('Excel_Files/BankStatement.xlsx')
 
 general()
 
 def Balance():
 
 # Opening_Bal
-    wb = load_workbook('Excel_Files/Dashboard/BankStatement.xlsx')
+    wb = load_workbook('Excel_Files/BankStatement.xlsx')
     sumr= wb['summary']
     eod= wb['EOD Balance']
-    df5 = pd.read_excel('Excel_Files/Dashboard/BankStatement.xlsx',sheet_name='EOD Balance',index_col = 'Day')
+    df5 = pd.read_excel('Excel_Files/BankStatement.xlsx',sheet_name='EOD Balance',index_col = 'Day')
    
     
 
@@ -2075,18 +2075,18 @@ def Balance():
     sumr.cell(row=21,column=8).value= eod.cell(row=2,column=7).value
     sumr.cell(row=21,column=9).value= eod.cell(row=2,column=8).value
     sumr.cell(row=21,column=10).value= eod.cell(row=2,column=9).value
-    sumr.cell(row=21,column=11).value= eod.cell(row=2,column=10).value
+    sumr.cell(row=21,column=11).value= eod.cell(row=2,column=10).value  
     sumr.cell(row=21,column=12).value= eod.cell(row=2,column=11).value
     sumr.cell(row=21,column=13).value= eod.cell(row=2,column=12).value
     sumr.cell(row=21,column=14).value= eod.cell(row=2,column=13).value
 
-    wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
+    wb.save('Excel_Files/BankStatement.xlsx')
 
 Balance()
 
 def Income():
     #print(df1)
-    wb = load_workbook('Excel_Files/Dashboard/BankStatement.xlsx')
+    wb = load_workbook('Excel_Files/BankStatement.xlsx')
     sumr= wb['summary']
     eod= wb['EOD Balance']
     
@@ -2498,7 +2498,7 @@ def Income():
 
 # Save the changes
 
-    wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
+    wb.save('Excel_Files/BankStatement.xlsx')
 
 Income()
 
@@ -2506,7 +2506,7 @@ Income()
 def Expenditure():
 
 
-    wb = load_workbook('Excel_Files/Dashboard/BankStatement.xlsx')
+    wb = load_workbook('Excel_Files/BankStatement.xlsx')
     sumr= wb['summary']
     eod= wb['EOD Balance']
 
@@ -3138,14 +3138,14 @@ def Expenditure():
 
 
 
-    wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
+    wb.save('Excel_Files/BankStatement.xlsx')
 
 Expenditure()
 
 def PersonalExpenses():
 
 
-     wb = load_workbook('Excel_Files/Dashboard/BankStatement.xlsx')
+     wb = load_workbook('Excel_Files/BankStatement.xlsx')
      sumr= wb['summary']
      eod= wb['EOD Balance']
 
@@ -3749,7 +3749,7 @@ def PersonalExpenses():
      except Exception as e:
       sumr.cell(row=59,column=14,value=0)
 
-     wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
+     wb.save('Excel_Files/BankStatement.xlsx')
 
 PersonalExpenses()
 
@@ -3757,7 +3757,7 @@ from pandas.core.dtypes.dtypes import dtypes
 def Balance1():
     
 #     row8=> Opening balance
-    df5 = pd.read_excel('Excel_Files/Dashboard/BankStatement.xlsx',sheet_name='EOD Balance',index_col = 'Day')
+    df5 = pd.read_excel('Excel_Files/BankStatement.xlsx',sheet_name='EOD Balance',index_col = 'Day')
 #     print(df5)
 #     print(df5.index[-1])
     df5.drop(index=df5.index[-1],axis=0,inplace=True) 
@@ -3831,7 +3831,7 @@ def Balance1():
     
     first_col.at[2] = v
 
-    wb = load_workbook('Excel_Files/Dashboard/BankStatement.xlsx')
+    wb = load_workbook('Excel_Files/BankStatement.xlsx')
     sumr= wb['summary']
     eod= wb['EOD Balance']
 
@@ -3920,14 +3920,14 @@ def Balance1():
        sumr.cell(row=22,column=14,value=0)
     
 
-    wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
+    wb.save('Excel_Files/BankStatement.xlsx')
 
 Balance1()
 
 def perExpenditure():
 
 
-     wb = load_workbook('Excel_Files/Dashboard/BankStatement.xlsx')
+     wb = load_workbook('Excel_Files/BankStatement.xlsx')
      sumr= wb['summary']
      eod= wb['EOD Balance']
 
@@ -4807,7 +4807,7 @@ def perExpenditure():
    
       
 
-     wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
+     wb.save('Excel_Files/BankStatement.xlsx')
 
 perExpenditure()
 
@@ -4857,7 +4857,7 @@ lastrows()
 def lastrows1():
 
 
-    wb = load_workbook('Excel_Files/Dashboard/BankStatement.xlsx')
+    wb = load_workbook('Excel_Files/BankStatement.xlsx')
     sumr= wb['summary']
     
     # Total Sales (receipts) -->
@@ -4957,13 +4957,13 @@ def lastrows1():
     sumr['N94'] = ((sumr['N87'].value) - ((sumr['N88'].value) + (sumr['N43'].value) + (sumr['N42'].value) + (sumr['N44'].value)))
     
     
-    wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
+    wb.save('Excel_Files/BankStatement.xlsx')
 
 lastrows1()
 
 def sum():
 
-    wb = load_workbook('Excel_Files/Dashboard/BankStatement.xlsx')
+    wb = load_workbook('Excel_Files/BankStatement.xlsx')
     sumr= wb['summary']
     
 
@@ -5026,20 +5026,20 @@ def sum():
 
 
 
-    wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
+    wb.save('Excel_Files/BankStatement.xlsx')
 
 sum()
 
 df1
 
-with pd.ExcelWriter('Excel_Files/Dashboard/BankStatement.xlsx',mode='a') as writer:  
+with pd.ExcelWriter('Excel_Files/BankStatement.xlsx',mode='a') as writer:  
    df1.to_excel(writer, sheet_name='Transaction1',index=False)
 
-#wb = load_workbook('Excel_Files/Dashboard/BankStatement.xlsx')
+#wb = load_workbook('Excel_Files/BankStatement.xlsx')
 #tran=wb['Transaction']
 #wb.remove(tran)
 
-# wb = load_workbook('Excel_Files/Dashboard/BankStatement.xlsx')
+# wb = load_workbook('Excel_Files/BankStatement.xlsx')
 
 
 # sheet_names = wb.sheetnames
@@ -5052,7 +5052,7 @@ import openpyxl
 import openpyxl
 
 # load the workbook
-wb = openpyxl.load_workbook('Excel_Files/Dashboard/BankStatement.xlsx')
+wb = openpyxl.load_workbook('Excel_Files/BankStatement.xlsx')
 
 # specify the name of the worksheet to move
 sheet_name = 'Transaction1'
@@ -5075,12 +5075,12 @@ for row in ws.iter_rows():
         wb[sheet_name][cell.coordinate].value = cell.value
 
 # save the changes
-wb.save('Excel_Files/Dashboard/BankStatement.xlsx')
+wb.save('Excel_Files/BankStatement.xlsx')
 
 import openpyxl
 
 # Load the Excel file
-workbook = openpyxl.load_workbook('Excel_Files/Dashboard/BankStatement.xlsx')
+workbook = openpyxl.load_workbook('Excel_Files/BankStatement.xlsx')
 
 # Get the sheet to be removed
 sheet_to_remove = workbook['Transaction']
@@ -5089,12 +5089,12 @@ sheet_to_remove = workbook['Transaction']
 workbook.remove(sheet_to_remove)
 
 # Save the changes
-workbook.save('Excel_Files/Dashboard/BankStatement.xlsx')
+workbook.save('Excel_Files/BankStatement.xlsx')
 
 import pandas as pd
 
 # Load the Excel file
-df = pd.read_excel('Excel_Files/Dashboard/BankStatement.xlsx', sheet_name='Transaction1')
+df = pd.read_excel('Excel_Files/BankStatement.xlsx', sheet_name='Transaction1')
 
 # Select column 'A'
 column_Tran_Date = df['Tran Date']
