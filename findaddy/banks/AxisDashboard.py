@@ -38,22 +38,22 @@ def general():
     Total_amount_cash_depo['Categories']='Cash Deposits'
     df1.update(Total_amount_cash_depo)
 
-    pos_df = df1[df1["Particulars"].str.contains("POS/", na=False)]
-    POS_cr = pos_df.groupby(pos_df['Tran Date'].dt.strftime('%b-%Y'))['Credit'].sum().sort_values()
-    # print(POS_cr)
-    POS_dr = pos_df.groupby(pos_df['Tran Date'].dt.strftime('%b-%Y'))['Debit'].sum().sort_values()
-    pos_dr = (df1[df1["Particulars"].str.contains("POS/")]
-              .groupby('Debit')
-              .apply(lambda x: x)
-              .reset_index(drop=True)
-              .assign(Categories = 'POS-dr'))
-    pos_cr = (df1[df1["Particulars"].str.contains("POS/")]
-              .groupby('Credit')
-              .apply(lambda x: x)
-              .reset_index(drop=True)
-              .assign(Categories = 'POS-cr'))
-    df1.update(pos_cr)
-    df1.update(pos_dr)
+    # pos_df = df1[df1["Particulars"].str.contains("POS/", na=False)]
+    # POS_cr = pos_df.groupby(pos_df['Tran Date'].dt.strftime('%b-%Y'))['Credit'].sum().sort_values()
+    # # print(POS_cr)
+    # POS_dr = pos_df.groupby(pos_df['Tran Date'].dt.strftime('%b-%Y'))['Debit'].sum().sort_values()
+    # pos_dr = (df1[df1["Particulars"].str.contains("POS/")]
+    #           .groupby('Debit')
+    #           .apply(lambda x: x)
+    #           .reset_index(drop=True)
+    #           .assign(Categories = 'POS-dr'))
+    # pos_cr = (df1[df1["Particulars"].str.contains("POS/")]
+    #           .groupby('Credit')
+    #           .apply(lambda x: x)
+    #           .reset_index(drop=True)
+    #           .assign(Categories = 'POS-cr'))
+    # df1.update(pos_cr)
+    # df1.update(pos_dr)
 
     Inv_details = df1[df1["Particulars"].str.contains("Zerodha -Dr", na=False)]
     Inv_dr = Inv_details.groupby(Inv_details['Tran Date'].dt.strftime('%b-%Y'))['Debit'].sum().sort_values()

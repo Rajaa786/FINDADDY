@@ -39,7 +39,7 @@ urlpatterns = [
     path('viewReport/', views.viewReport, name='viewReport'),
     path('reports_ajax/', views.reports_ajax, name='reports_ajax'),
     path('showReport/', views.showReport, name='showReport'),
-    
+
 
     # static and media files
     re_path(r'static/(?P<path>.*)$', serve,

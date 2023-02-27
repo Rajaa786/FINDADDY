@@ -318,6 +318,7 @@ def create_report_ajax(request):
             os.getcwd(), 'Excel_Files' + '/' + 'Dashboard' + '/' + 'BankStatement.xlsx')
         report_loc = os.path.join(
             os.getcwd(), 'Excel_Files' + '/' + 'BankStatement.xlsx')
+        finalReport = report_loc1 + ' ' + report_loc
         folder_loc = os.path.join(
             os.getcwd(), 'Excel_Files')
         if not os.path.exists(folder_loc):
@@ -370,13 +371,13 @@ def create_report_ajax(request):
 
         # Uploading Excel Report to Firebase Storage
         today_date = str(datetime.now().strftime("%d-%m-%Y-%H%M%S"))
-        storage_loc1 = os.path.join(
+        storage_loc = os.path.join(
             request.session['uid'], 'reports' + '/' + today_date + '/' + report['reportname'] + '.xlsx')
         if os.path.exists(report_loc):
             print('Uploading Excel Report to Firebase Storage')
             try:
-                storage.child(storage_loc1).put(report_loc1)
-                excel_url = storage.child(storage_loc1).get_url(None)
+                storage.child(storage_loc).put(report_loc)
+                excel_url = storage.child(storage_loc).get_url(None)
                 print('Excel Report Uploaded Completely')
             except Exception as e:
                 print('Excel Report Upload Failed')
@@ -480,13 +481,19 @@ def viewReport(request):
 
 
 def reports_ajax(request):
-    reports = db.child("users").child('reports').child(
+    # reports = db.child("users").child('reports').child(
+    #     request.session['uid']).get().val()
+    reports = db.child("users").child('summary').child('reports').child(
         request.session['uid']).get().val()
     if reports != None:
         return JsonResponse(reports)
     return JsonResponse({})
 
-
+    reports1 = db.child("users").child('summary').child('reports').child(
+        request.session['uid']).get().val()
+    if reports1 != None:
+        return JsonResponse(reports1)
+    return JsonResponse({})
 # def showReport(request):
 #     if check_login(request):
 #         if check_plan_expired(request):
@@ -501,6 +508,8 @@ def reports_ajax(request):
 #             return render(request, 'showReport.html', {'tables': tables, 'tables1': tables1})
 #         return render(request, 'index.html', {"message": "Your plan has expired"})
 #     return render(request, 'login.html', {"message": "Please Login Again"})
+
+
 def showReport(request):
     if check_login(request):
         if check_plan_expired(request):
