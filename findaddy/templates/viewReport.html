@@ -265,12 +265,7 @@
   <script src="{% static 'js/vendor/responsive.bootstrap5.min.js' %}"></script>
   <!-- third party js ends -->
 
-  <!--Summary part-->
-
-  <!--Summary part ends -->
-
   <!-- demo app -->
-
   <script type="text/javascript">
     $(document).ready(function () {
       $("#basic-datatable").DataTable({
@@ -287,31 +282,26 @@
                 createdAt: report.createdAt,
                 action:
                   `<a
-                      href="{% url 'showReport' %}?data=` +
+								href="{% url 'showReport' %}?data=` +
                   index +
                   `"
-                      target="_blank"
-                      class="action-icon"
-                    >
-                      <i class="mdi mdi-eye"></i>
-                  </a>
-                  <a
-                      href="` +
+								target="_blank"
+								class="action-icon"
+							>
+								<i
+									class="mdi mdi-eye"
+								></i
+							></a>
+							<a
+								href="` +
                   report.excel_url +
                   `"
-                      class="action-icon"
-                    >
-                      <i class="mdi mdi-download"></i>
-                  </a>
-                  <a
-                      href="{% url 'reports_ajax' %}?data=` +
-                  index +
-                  `"
-                      class="action-icon"
-                    >
-                      <i class="mdi mdi-download"></i>
-                  </a>
-                `,
+								class="action-icon"
+							>
+								<i
+									class="mdi mdi-download"
+								></i
+							></a>`,
               });
             });
             res = JSON.parse(JSON.stringify(report_arr));
@@ -329,26 +319,7 @@
         ],
       });
     });
-
-    function downloadSummaryReport(index) {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", '{% url "reports_ajax" %}?data=' + index, true);
-      xhr.responseType = "blob";
-      xhr.onload = function (e) {
-        if (this.status == 200) {
-          var blob = new Blob([this.response], {
-            type: "application/pdf/xlsx",
-          });
-          var link = document.createElement("a");
-          link.href = window.URL.createObjectURL(blob);
-          link.download = "report_loc1.pdf";
-          link.click();
-        }
-      };
-      xhr.send();
-    }
   </script>
-
   <!-- end demo js-->
 </body>
 {% endblock body %}

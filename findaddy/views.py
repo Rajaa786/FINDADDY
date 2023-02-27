@@ -483,7 +483,7 @@ def viewReport(request):
 def reports_ajax(request):
     # reports = db.child("users").child('reports').child(
     #     request.session['uid']).get().val()
-    reports = db.child("users").child('summary').child('reports').child(
+    reports = db.child("users").child('reports').child(
         request.session['uid']).get().val()
     if reports != None:
         return JsonResponse(reports)
