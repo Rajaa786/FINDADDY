@@ -600,19 +600,48 @@ def reports_ajax(request):
 #     return render(request, 'login.html', {"message": "Please Login Again"})
 
 
+# def showReport(request):
+#     if check_login(request):
+#         if check_plan_expired(request):
+#             query = request.GET.get('data')
+#             report1 = db.child("users").child('tables').child(
+#                 request.session['uid']).child(query).get().val()
+#             report = db.child("users").child('summary').child('tables').child(
+#                 request.session['uid']).child(query).get().val()
+#             tables1 = dict(report1) if report1 else {}
+#             tables = dict(report) if report else {}
+#             return render(request, 'showReport.html', {'tables': tables, 'tables1': tables1})
+#         return render(request, 'index.html', {"message": "Your plan has expired"})
+#     return render(request, 'login.html', {"message": "Please Login Again"})
+
 def showReport(request):
     if check_login(request):
         if check_plan_expired(request):
             query = request.GET.get('data')
             report = db.child("users").child('tables').child(
                 request.session['uid']).child(query).get().val()
-            report1 = db.child("users").child('summary').child('tables').child(
-                request.session['uid']).child(query).get().val()
-            tables1 = dict(report1) if report1 else {}
+            # report = db.child("users").child('summary').child('tables').child(
+            #     request.session['uid']).child(query).get().val()
             tables = dict(report) if report else {}
-            return render(request, 'showReport.html', {'tables': tables, 'tables1': tables1})
+
+            # Handle form submission
+            if request.method == 'POST':
+                table_name = request.POST.get('tablename')
+                categorys = request.POST.get('categorys')
+
+                # Update the categorys value in Firebase
+                db.child("users").child('tables').child(request.session['uid']).child(query).child(table_name).update({"categorys": categorys})
+
+            return render(request, 'showReport.html', {'tables': tables})
         return render(request, 'index.html', {"message": "Your plan has expired"})
     return render(request, 'login.html', {"message": "Please Login Again"})
+
+def editTransaction(request):
+    if check_login(request):
+        if check_plan_expired(request):
+            pass
+    
+
 
 
 def check_plan(request):

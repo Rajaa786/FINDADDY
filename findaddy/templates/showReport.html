@@ -67,6 +67,12 @@
               <span> View Report </span>
             </a>
           </li>
+          <li class="side-nav-item">
+            <a href="{% url 'viewReport' %}" class="side-nav-link">
+              <i class="uil-rss"></i>
+              <span> Edit Report </span>
+            </a>
+          </li>
         </ul>
 
         <!-- Help Box -->
@@ -298,6 +304,11 @@
     			</div>`;
     		$("#result_table").append(table_html);
     	}
+
+
+      function get() {
+        var username = $("#username").val();
+      }
   </script>
 </body>
 {% endblock body %}
