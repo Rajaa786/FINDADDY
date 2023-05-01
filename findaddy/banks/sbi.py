@@ -184,7 +184,7 @@ class SBI:
                 if y.isdigit():
                     pass
                 else:
-                    temp['EOD'] = temp['EOD'].str[:-1]
+                    temp['EOD'] = temp['EOD'].str[:]
                 temp['EOD'] = temp['EOD'].astype(float)
                 temp.columns.values[1] = mlist[month]+'-'+str(yearlb[0])
                 temp = temp.set_index(['Day'])
@@ -572,6 +572,3 @@ class SBI:
 # startdate = '01/09/2020'
 # enddate = '31/02/2021'
 # AXIS('dec 2020 to july 2021.pdf', passwd, startdate, enddate)
-'''
-POOJAN
-'''
